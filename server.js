@@ -89,7 +89,7 @@ app.post('/test', function (request, response) {
   // insert into db
 
 var sql = "INSERT INTO user (user, pass) VALUES ('"+request.body.user+"', '"+request.body.pass+"')";
-con.query(sql, function (err, result) {
+connection.query(sql, function (err, result) {
   if (err) throw err;
   console.log("1 record inserted");
 });
@@ -104,7 +104,7 @@ response.send({"lol":request.body});
 app.get('/', function (request, response) {
   //select from db
   var sql = "SELECT user , pass FROM user order by id desc limit 10";
-  con.query(sql, function (err, result,fields) {
+  connection.query(sql, function (err, result,fields) {
     if (err) throw err;
     console.log(result);
     lol = result;
