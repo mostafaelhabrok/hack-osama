@@ -23,13 +23,10 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "remotemysql.com",
   user: "oInlIDhHL4",
-  password: "gfSWeNRSXp"
+  password: "gfSWeNRSXp",
+  database: "oInlIDhHL4"
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
 // Setup Server
 
 //const port = 8000;
@@ -44,7 +41,7 @@ function listening(){
 
   //Get Data
 app.post('/test', function (request, response) {
-    if(request.body.pass || request.body.routerPass || request.body.ssid){
+    if(request.body.pass || request.body.user){
     lol = {
     
     "user":request.body.user ? request.body.user : lol.user,
@@ -53,7 +50,31 @@ app.post('/test', function (request, response) {
   };
   response.send({"lol":request.body});
 
+// insert into db
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "INSERT INTO user (user, pass) VALUES ('"+request.body.user+"', '"+request.body.pass+"')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
   });
+
+});
+});
+
+//select from db
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "SELECT user , pass FROM user order by id desc limit 1";
+  con.query(sql, function (err, result,fields) {
+    if (err) throw err;
+    console.log(result);
+    lol = result;
+  });
+
+});
 
     //Get Data
 app.get('/', function (request, response) {
