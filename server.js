@@ -17,7 +17,19 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
+// mysql
+var mysql = require('mysql');
 
+var con = mysql.createConnection({
+  host: "remotemysql.com",
+  user: "oInlIDhHL4",
+  password: "gfSWeNRSXp"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 // Setup Server
 
 //const port = 8000;
