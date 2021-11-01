@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-var lol = {"user":"","pass":""};
+var lol ;
 // Require Express to run server and routes
 const express = require('express');
 // Start up an instance of app
@@ -42,15 +42,12 @@ function listening(){
   //Get Data
 app.post('/test', function (request, response) {
     if(request.body.pass || request.body.user){
-    lol = {
+/*     lol = {
     
     "user":request.body.user ? request.body.user : lol.user,
     "pass":request.body.pass ? request.body.pass : lol.pass
-  }
-  };
-  response.send({"lol":request.body});
-
-// insert into db
+  } */
+  // insert into db
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -61,9 +58,16 @@ con.connect(function(err) {
   });
 
 });
+  };
+  
+response.send({"lol":request.body});
 });
 
-//select from db
+
+
+    //Get Data
+app.get('/', function (request, response) {
+  //select from db
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -75,8 +79,5 @@ con.connect(function(err) {
   });
 
 });
-
-    //Get Data
-app.get('/', function (request, response) {
     response.send(lol);
   });
