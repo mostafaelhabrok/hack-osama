@@ -26,11 +26,16 @@ var con = mysql.createConnection({
   password: "gfSWeNRSXp",
   database: "oInlIDhHL4"
 });
+//connect
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 // Setup Server
 
 //const port = 8000;
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 
 const server = app.listen(port, listening);
 function listening(){
@@ -48,15 +53,11 @@ app.post('/test', function (request, response) {
     "pass":request.body.pass ? request.body.pass : lol.pass
   } */
   // insert into db
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "INSERT INTO user (user, pass) VALUES ('"+request.body.user+"', '"+request.body.pass+"')";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 record inserted");
-  });
 
+var sql = "INSERT INTO user (user, pass) VALUES ('"+request.body.user+"', '"+request.body.pass+"')";
+con.query(sql, function (err, result) {
+  if (err) throw err;
+  console.log("1 record inserted");
 });
   };
   
@@ -68,16 +69,11 @@ response.send({"lol":request.body});
     //Get Data
 app.get('/', function (request, response) {
   //select from db
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "SELECT user , pass FROM user order by id desc limit 1";
+  var sql = "SELECT user , pass FROM user order by id desc limit 10";
   con.query(sql, function (err, result,fields) {
     if (err) throw err;
     console.log(result);
     lol = result;
   });
-
-});
     response.send(lol);
   });
